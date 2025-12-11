@@ -25,14 +25,18 @@ A comprehensive analysis of global COVID-19 case data from Our World in Data. Th
    ```bash
    git clone https://github.com/your-username/covid19-tracker.git
    ```
-2. Install requirements:
+2. **Activate the covid19_tracker virtual environment** (required for all notebooks):
    ```bash
-   pip install pandas matplotlib seaborn jupyter
+   conda activate covid19_tracker
    ```
+   This environment includes all required dependencies (pandas, numpy, matplotlib, seaborn, scipy, statsmodels, IPython).
+
 3. Launch Jupyter Notebook:
    ```bash
    jupyter notebook covid19_analysis.ipynb
    ```
+   
+   **Note**: For generated analysis notebooks in `notebooks/`, use the "COVID-19 Tracker (Python 3.11 AMD GPU)" kernel in VS Code or Jupyter.
 
 ## 💡 Key Insights
 - Case fatality rates varied significantly by country

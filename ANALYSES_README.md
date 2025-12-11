@@ -167,6 +167,28 @@ These new notebooks focus on **high-information questions** where:
 
 ---
 
+## Environment Requirements
+
+**Virtual Environment**: `covid19_tracker` (conda environment, Python 3.11.5)
+
+All notebooks require the `covid19_tracker` conda environment which includes:
+- pandas 2.3.1
+- numpy 2.1.3
+- matplotlib 3.10.0
+- seaborn 0.13.2
+- scipy 1.16.0
+- statsmodels 0.14.5
+- IPython 9.8.0
+
+**Setup**:
+```bash
+conda activate covid19_tracker
+jupyter lab
+```
+
+**VS Code Users**: Select the "COVID-19 Tracker (Python 3.11 AMD GPU)" kernel when opening notebooks.
+
+---
+
 **Generated using**: `generate_analysis_notebooks.py`  
-**Requirements**: pandas, numpy, matplotlib, seaborn, scipy  
 **Compliance**: Follows NOTEBOOK_GENERATION_REQUIREMENTS.md (workspace-relative paths only)

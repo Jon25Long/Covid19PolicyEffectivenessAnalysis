@@ -110,7 +110,8 @@ grep -r "/Users/" *.ipynb    # Should return nothing (✓ Verified)
 ✅ **Cross-platform compatible** (Path objects, no hardcoded separators)  
 ✅ **No absolute paths** (grep verified)  
 ✅ **Follows NOTEBOOK_GENERATION_REQUIREMENTS.md**  
-✅ **Portable across systems**
+✅ **Portable across systems**  
+✅ **Environment isolated** (requires `covid19_tracker` conda environment)
 
 ## Key Features
 
