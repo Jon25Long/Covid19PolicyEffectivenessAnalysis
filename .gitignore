@@ -23,12 +23,13 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Virtual Environment
+# Virtual Environments
 venv/
 env/
 ENV/
 env.bak/
 venv.bak/
+.venv/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -39,71 +40,115 @@ venv.bak/
 profile_default/
 ipython_config.py
 
-# Data Files
-*.csv
-*.xlsx
-*.xls
-*.xlsm
-*.db
-*.sqlite
-*.sqlite3
-*.h5
-*.hdf5
-*.pkl
-*.pickle
-*.parquet
-*.feather
-
-# SAS Files
-*.sas7bdat
-*.sas7bcat
+# SAS
 *.log
 *.lst
-*.sas7bndx
+sasuser.*
+*.sas7bdat.lk
 work/
-saswork/
+*.sas7bcat
 
-# R Files
+# Data files (large datasets)
+*.csv.gz
+*.parquet
+*.feather
+*.hdf5
+*.h5
+
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+.~lock.*
+
+# R (if used)
 .Rhistory
 .RData
 .Rproj.user
 
-# IDE
+# IDE and Editor
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-.DS_Store
+.spyderproject
+.spyproject
+.ropeproject
 
-# Output Files
-*.pdf
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Output files
+output/
+outputs/
+results/
+figures/
+plots/
 *.png
 *.jpg
 *.jpeg
-*.gif
+*.pdf
 *.svg
-plots/
-figures/
-output/
-results/
 
-# Documentation
-*.docx
-*.doc
-*.pptx
-*.ppt
-
-# Logs
+# Logs and databases
 *.log
-logs/
+*.sql
+*.sqlite
+*.db
 
-# Temporary Files
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Credentials and secrets
+*.pem
+*.key
+credentials.json
+secrets.json
+config_local.py
+
+# Temporary files
+tmp/
+temp/
 *.tmp
-*.temp
 *.bak
 *.backup
-
-# OS
-.DS_Store
-Thumbs.db
