@@ -1,197 +1,188 @@
-# Policy Effectiveness Analysis
+# COVID-19 Policy Effectiveness Analysis
 
 ## Overview
 
-This project examines the relationship between government policy stringency and COVID-19 transmission rates to answer a critical public health question: **Does government policy strictness actually reduce viral transmission?**
-
-Using data from Our World in Data (OWID), this analysis explores the correlation between the Oxford Stringency Index and reproduction rates across countries during the COVID-19 pandemic.
+This project analyzes the relationship between government policy stringency and COVID-19 transmission rates using the **Oxford COVID-19 Government Response Tracker** (OxCGRT) stringency index and viral reproduction rates from the Our World in Data (OWID) COVID-19 dataset.
 
 ## Research Question
 
-**Primary Question**: Does government policy strictness actually reduce viral transmission?
+**Does government policy strictness actually reduce viral transmission?**
 
-**Independent Variable**: `stringency_index` (Oxford COVID-19 Government Response Tracker)  
-**Dependent Variable**: `reproduction_rate` (viral transmission rate)  
-**Analysis Type**: Time series correlation and regression analysis
+This analysis explores whether stricter containment policies (lockdowns, stay-at-home orders, school closures) correlate with reduced transmission rates as measured by the reproduction rate (R).
 
-## Information Theory Context
+## Key Variables
 
-This analysis explores a **non-obvious relationship** where the outcome is not immediately predictable. According to information theory, information content is inversely proportional to the probability of an outcome: **I ∝ 1/P(outcome)**. Surprising results contain more information than expected ones.
-
-The prevailing narrative suggested strict containment policies (lockdowns, stay-at-home orders, school closures) would substantially reduce transmission rates. This project tests whether empirical data supports this hypothesis.
+- **Independent Variable**: `stringency_index` - Oxford COVID-19 Government Response Tracker composite measure of policy stringency (0-100 scale)
+- **Dependent Variable**: `reproduction_rate` - The average number of new infections caused by a single infected individual
 
 ## Project Structure
 
 ```
 policy-effectiveness-analysis/
-├── README.md                                    # This file
-├── Data/                                        # Data files and scripts
-│   ├── owid-covid-data.csv                     # OWID COVID-19 dataset
-│   ├── owid-covid-data-cleaned.xlsx            # Cleaned data
-│   ├── covid_correlation_regression_analysis.py # Python analysis script
-│   ├── covid_correlation_regression_analysis.sas # SAS analysis script
-│   ├── covid_data_cleaner.py                   # Data preprocessing
-│   └── covid_analysis_results.xlsx             # Analysis outputs
-├── notebooks/                                   # Analysis notebooks
-│   └── policy_effectiveness_analysis-final.ipynb
-└── .gitignore                                  # Git exclusions
+├── README.md                           # This file
+├── .gitignore                          # Git ignore patterns
+├── Data/                               # Data files and analysis scripts
+│   ├── covid_data_cleaner.py           # Data preprocessing script
+│   ├── covid_correlation_regression_analysis.py  # Python statistical analysis
+│   ├── covid_correlation_regression_analysis.sas # SAS statistical analysis
+│   ├── covid_analysis_results.xlsx     # Analysis output (generated)
+│   └── owid-covid-data-cleaned.xlsx    # Cleaned dataset (generated)
+└── notebooks/                          # Jupyter notebooks
+    └── policy_effectiveness_analysis-final.ipynb  # Complete analysis workflow
 ```
 
 ## Data Source
 
-**Dataset**: Our World in Data (OWID) COVID-19 Dataset  
-**URL**: <https://github.com/owid/covid-19-data>
+- **Dataset**: Our World in Data COVID-19 Dataset
+- **URL**: <https://github.com/owid/covid-19-data>
+- **File**: `owid-covid-data.csv`
+- **Citation**: Hasell, J., Mathieu, E., Beltekian, D. et al. (2020). A cross-country database of COVID-19 testing. *Scientific Data*, 7, 345.
 
-The OWID COVID-19 dataset provides comprehensive, daily-updated COVID-19 statistics including:
+## Methodology
 
-- Policy stringency measures (Oxford Government Response Tracker)
-- Epidemiological indicators (cases, deaths, reproduction rates)
-- Healthcare capacity metrics
-- Demographic and economic variables
+### 1. Data Cleaning
 
-**Key Variables**:
+- Import OWID COVID-19 dataset
+- Remove columns with >80% missing values
+- Drop rows with missing values for key variables
+- Export cleaned dataset
 
-- `date`: Observation date
-- `location`: Country/region name
-- `stringency_index`: Government response stringency (0-100 scale)
-- `reproduction_rate`: Effective reproduction number (R)
-- `new_cases_per_million`: Daily new cases per million population
+### 2. Statistical Analysis
 
-## Analysis Methods
+**Correlation Analysis:**
 
-### Statistical Techniques
+- Pearson correlation coefficient (parametric)
+- Spearman rank correlation coefficient (non-parametric)
 
-1. **Pearson Correlation**: Measures linear relationship between stringency and reproduction rate
-2. **Spearman Correlation**: Assesses monotonic relationship (rank-based)
-3. **Linear Regression**: Models reproduction rate as a function of stringency index
-4. **Variance Analysis**: Examines variability in both variables
+**Regression Analysis:**
 
-### Scripts and Tools
+- Linear regression modeling stringency_index → reproduction_rate
+- Calculate R², RMSE, standard errors, and confidence intervals
+- Test statistical significance of relationship
 
-- **Python Analysis** ([covid_correlation_regression_analysis.py](Data/covid_correlation_regression_analysis.py))
-  - Pandas for data manipulation
-  - SciPy for statistical tests
-  - Scikit-learn for regression modeling
-  - Excel export with formatted results
+**Variance Analysis:**
 
-- **Jupyter Notebook** ([policy_effectiveness_analysis-final.ipynb](notebooks/policy_effectiveness_analysis-final.ipynb))
-  - Interactive exploratory data analysis
-  - Visualizations (scatter plots, distributions)
-  - Quality assessment and missing value analysis
-  - Comprehensive statistical interpretation
+- Calculate variance for both independent and dependent variables
 
-- **SAS Analysis** ([covid_correlation_regression_analysis.sas](Data/covid_correlation_regression_analysis.sas))
-  - PROC CORR for correlation analysis
-  - PROC REG for regression modeling
+### 3. Visualization & Interpretation
 
-## Key Findings
+- Time series plots
+- Scatter plots with regression lines
+- Distribution analysis
+- Missing data patterns
 
-The analysis evaluates:
+## Implementation
 
-- **Correlation strength**: Is there a significant relationship between policy stringency and transmission?
-- **Effect magnitude**: How much does a 1-unit increase in stringency affect reproduction rate?
-- **Statistical significance**: Are observed relationships unlikely due to chance?
-- **Practical significance**: Do the findings have real-world policy implications?
+### Python Implementation
 
-## Getting Started
-
-### Prerequisites
+**Prerequisites:**
 
 ```bash
-# Python requirements
-pip install pandas numpy scipy scikit-learn matplotlib seaborn openpyxl jupyter
+pip install pandas numpy scipy scikit-learn matplotlib seaborn openpyxl
 ```
 
-### Running the Analysis
-
-**Option 1: Python Script**
+**Run Data Cleaning:**
 
 ```bash
 cd Data
-python3 covid_correlation_regression_analysis.py
+python covid_data_cleaner.py
 ```
 
-**Option 2: Jupyter Notebook**
+**Run Statistical Analysis:**
+
+```bash
+python covid_correlation_regression_analysis.py
+```
+
+**Run Jupyter Notebook:**
 
 ```bash
 cd notebooks
-jupyter lab policy_effectiveness_analysis-final.ipynb
+jupyter notebook policy_effectiveness_analysis-final.ipynb
 ```
 
-**Option 3: SAS**
+### SAS Implementation
+
+**Prerequisites:**
+
+- SAS 9.4 or later
+- PROC IMPORT, PROC CORR, PROC REG capabilities
+
+**Run Analysis:**
 
 ```sas
-/* Update file paths in the script, then run */
-%include 'covid_correlation_regression_analysis.sas';
+%include 'Data/covid_correlation_regression_analysis.sas';
 ```
 
-## Results Output
+## Expected Outputs
 
-The Python analysis exports results to `Data/covid_analysis_results.xlsx` containing:
+1. **Console Output:**
+   - Data import summary
+   - Sample size before/after cleaning
+   - Correlation coefficients and p-values
+   - Regression coefficients, R², and significance tests
+   - Variance calculations
 
-1. **Descriptive Statistics**: Mean, standard deviation, variance for both variables
-2. **Pearson Correlation**: Coefficient and p-value
-3. **Spearman Correlation**: Coefficient and p-value
-4. **Regression Results**: Coefficients, R², standard errors, confidence intervals
-5. **Model Diagnostics**: Residuals, predictions, fit statistics
+2. **Excel File** (`covid_analysis_results.xlsx`):
+   - Summary statistics
+   - Correlation results
+   - Regression coefficients and diagnostics
+   - Confidence intervals
+
+3. **Visualizations:**
+   - Scatter plots with trend lines
+   - Time series analysis
+   - Distribution plots
+   - Missing data heatmaps
+
+## Key Findings
+
+*Note: Run the analysis to generate findings based on your dataset version and time period.*
+
+The analysis tests the hypothesis that stricter government policies (higher stringency index) are associated with lower viral transmission (lower reproduction rate). Results may challenge or confirm prevailing narratives about lockdown effectiveness.
+
+## Information Theory Context
+
+According to information theory, information content is inversely proportional to the probability of an outcome: **I ∝ 1/P(outcome)**. Surprising results contain more information than expected ones. This analysis explores whether the relationship between policy stringency and transmission is as straightforward as commonly assumed.
 
 ## Technical Notes
 
-### Data Quality Considerations
+- **Missing Data Handling**: Complete case analysis (listwise deletion)
+- **Statistical Significance Level**: α = 0.05
+- **Regression Assumptions**: Linearity, independence, homoscedasticity, normality of residuals should be verified
+- **Temporal Considerations**: Time lag effects between policy implementation and transmission changes are not explicitly modeled in basic correlation/regression
 
-- **Missing Values**: Only complete cases are used (rows with both stringency and reproduction rate)
-- **Temporal Alignment**: Policy effects may have time lags not captured in simultaneous analysis
-- **Geographic Variation**: Country-specific factors may moderate the relationship
-- **Policy Heterogeneity**: Stringency index aggregates diverse policy types
+## Limitations
 
-### Reproducibility
+1. Ecological fallacy: Country-level aggregates may not reflect individual-level relationships
+2. Confounding variables: Many factors influence transmission beyond policy stringency
+3. Temporal dynamics: Policies may have delayed effects not captured in concurrent correlations
+4. Data quality: Reproduction rate estimates have inherent uncertainty
+5. Missing data: Complete case analysis may introduce bias
 
-All analysis scripts use relative paths where possible. If you encounter path errors in the Python script, update the `data_folder` variable in [covid_correlation_regression_analysis.py](Data/covid_correlation_regression_analysis.py):
+## Future Extensions
 
-```python
-# Line 27 - Update to your absolute path
-data_folder = "/path/to/policy-effectiveness-analysis/Data"
-```
-
-## Applications
-
-This analysis framework can be adapted for:
-
-- Policy impact evaluation in other public health domains
-- Comparative effectiveness research
-- Time-series intervention studies
-- Correlation vs. causation case studies
-
-## Related Projects
-
-This project is part of the **Public Health Data Science Portfolio**:
-
-- **COVID-19 Tracker**: 10 high-information analyses exploring pandemic patterns
-- **Healthcare Data Science**: Reference examples for epidemiological analysis
-- **Tools & Frameworks**: Reusable components for public health research
-
-## License
-
-**Data**: Our World in Data COVID-19 dataset is licensed under Creative Commons BY  
-**Code**: Analysis scripts are original work, available for reuse with attribution
+- [ ] Add time-lagged correlation analysis
+- [ ] Include confounding variables (vaccination rates, seasonality, variants)
+- [ ] Implement panel data regression models
+- [ ] Add country-specific stratified analyses
+- [ ] Explore non-linear relationships
+- [ ] Add causal inference methods (e.g., difference-in-differences)
 
 ## References
 
-1. Hale, T., et al. (2021). "A global panel database of pandemic policies (Oxford COVID-19 Government Response Tracker)." *Nature Human Behaviour*, 5(4), 529-538.
-2. Mathieu, E., et al. (2021). "A global database of COVID-19 vaccinations." *Nature Human Behaviour*, 5(7), 947-953.
-3. Our World in Data. (2023). "Coronavirus Pandemic (COVID-19)." Retrieved from <https://ourworldindata.org/coronavirus>
+- Hale, T., Angrist, N., Goldszmidt, R. et al. (2021). A global panel database of pandemic policies (Oxford COVID-19 Government Response Tracker). *Nature Human Behaviour*, 5, 529-538.
+- World Health Organization. (2020). *Considerations for implementing and adjusting public health and social measures in the context of COVID-19*.
 
-## Contact
+## Author
 
-This project is part of a public health data science portfolio demonstrating technical expertise in:
+Jon Long  
+Public Health Portfolio Project
 
-- Statistical analysis and hypothesis testing
-- Time-series epidemiological modeling
-- Multi-platform implementation (Python, SAS)
-- Reproducible research practices
+## License
+
+This project is for educational and portfolio purposes. Data usage is subject to OWID terms and Oxford COVID-19 Government Response Tracker license.
 
 ---
 
-**Last Updated**: January 7, 2026  
-**Project Type**: Public Health Policy Analysis  
-**Status**: Complete
+*Last Updated: January 8, 2026*
